@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import App from './App.jsx'
 import Error from './components/ErrorPage.jsx'
+import Admin from './components/AdminPage.jsx'
 import './index.css'
 
 const router = createBrowserRouter([
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <App/>,
     errorElement: <Error />,
+  },
+  {
+    path: "admin",
+    element: <Admin />,
   },
 ]);
 
