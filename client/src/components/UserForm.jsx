@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import { Link } from "react-router-dom";
+import axios from 'axios'
 
 
 function UserForm () {
@@ -7,13 +8,24 @@ function UserForm () {
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [email, setEmail] = useState("")
-    const [problem, setProblem] = useState("")
+    const [description, setDescription] = useState("")
 
-
+    //submit user info 
+    function submitUserForm(e) {
+        e.preventDefault()
+        console.log("did we make it?")
+        axios.post('/submit_user_form', {
+            first_name: firstName,
+            last_name: lastName,
+            email: email,
+            description: description
+        })
+        .then(response => console.log(response))
+    }
 
     return (
         <div>
-            <form class="w-full max-w-lg">
+            <form class="w-full max-w-lg" onSubmit={submitUserForm}>
             <div class="flex flex-wrap -mx-3 mb-6">
                 <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
@@ -63,14 +75,21 @@ function UserForm () {
                     id="grid-password" 
                     type="text" 
                     placeholder="enter description there"
-                    value={problem}
-                    onChange={(e)=> setProblem(e.target.value)}/>
+                    value={description}
+                    onChange={(e)=> setDescription(e.target.value)}/>
                 </div>
+            </div>
+
+            <div class="items-center">
+                <button class="shadow w-full bg-purple-500 hover:bg-purple-400 focus:shadow-outline-purple text-white font-bold py-2 px-4 rounded" 
+                    type="submit">
+                    Submit Complaint
+                </button>
             </div>
             </form>
 
-            <div>
-                <Link to= '/admin'> Not a user? Click here for admin</Link>
+            <div class="mt-3 underline">
+                <Link to= '/admin'> Not a user? Click here to view Admin Page</Link>
             </div>
         </div>    
         
